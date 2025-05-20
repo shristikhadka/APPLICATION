@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import { getFunctions, httpsCallable } from 'firebase/functions';
-import { app } from '../../FirebaseConfig';
+import  app  from '../../FirebaseConfig';
 
 export default function TabFourScreen() {
   const [functionResult, setFunctionResult] = useState('');
