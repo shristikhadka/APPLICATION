@@ -23,6 +23,8 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         tabBarInactiveTintColor: '#8E8E93',
         headerShown: useClientOnlyValue(false, true),
+      
+        headerTitle: "Memora",
         tabBarStyle: {
           height: 60,
           paddingBottom: 8,
@@ -31,6 +33,7 @@ export default function TabLayout() {
         headerTitleStyle: {
           fontWeight: '600',
           fontSize: 18,
+           display: 'none',
         },
       }}>
       <Tabs.Screen
