@@ -22,8 +22,6 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         tabBarInactiveTintColor: '#8E8E93',
-        headerShown: useClientOnlyValue(false, true),
-      
         headerTitle: "Memora",
         tabBarStyle: {
           height: 60,
@@ -41,7 +39,7 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-          headerShown: true,
+          headerShown: false,
         }}
       />
       <Tabs.Screen

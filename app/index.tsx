@@ -71,7 +71,7 @@ const Index = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.formContainer}>
-        <Text style={styles.title}>Welcome to DEMO_APP</Text>
+        <Text style={styles.title}>Welcome to Memora</Text>
         
         <TextInput
           style={styles.input}
