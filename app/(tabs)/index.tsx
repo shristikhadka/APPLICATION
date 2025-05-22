@@ -1,19 +1,37 @@
 import { StyleSheet } from 'react-native';
 import { Text, View } from '@/components/Themed';
 import { auth } from '../../FirebaseConfig';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Alert } from 'react-native';
 import { router } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
+import { useEffect, useState } from 'react';
 
 export default function TabOneScreen() {
-  const user = auth.currentUser;
+  const [user, setUser] = useState(auth.currentUser);
+
+  // Listen for auth state changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      if (!currentUser) {
+        // User is signed out, navigate to login screen
+        router.replace('/');
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   const handleSignOut = async () => {
     try {
-      await auth.signOut();
-      router.replace('/');
-    } catch (error) {
+      console.log('Signing out user:', user?.email);
+      await signOut(auth);
+      console.log('Sign out successful');
+      // The onAuthStateChanged listener will handle navigation
+    } catch (error: any) {
       console.error('Error signing out:', error);
+      Alert.alert('Sign Out Error', error.message || 'Failed to sign out');
     }
   };
 
@@ -25,7 +43,7 @@ export default function TabOneScreen() {
       </View>
 
       <View style={styles.menuContainer}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.menuItem}
           onPress={() => router.push('/(tabs)/two')}
         >
@@ -39,7 +57,7 @@ export default function TabOneScreen() {
           <FontAwesome name="chevron-right" size={16} color="#ccc" />
         </TouchableOpacity>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.menuItem}
           onPress={() => router.push('/(tabs)/three')}
         >
@@ -53,7 +71,7 @@ export default function TabOneScreen() {
           <FontAwesome name="chevron-right" size={16} color="#ccc" />
         </TouchableOpacity>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.menuItem}
           onPress={() => router.push('/(tabs)/four')}
         >
@@ -68,7 +86,7 @@ export default function TabOneScreen() {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.signOutButton}
         onPress={handleSignOut}
       >
